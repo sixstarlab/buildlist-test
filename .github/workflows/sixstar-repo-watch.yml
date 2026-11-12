@@ -1,0 +1,20 @@
+name: SixStar repository watch
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: sixstarlab/repo-watch-action@v1
+        with:
+          key: ${{ secrets.SIXSTAR_REPO_KEY }}
+          site: "https://team.sixstarlab.com"
+          pr_check: "on"
